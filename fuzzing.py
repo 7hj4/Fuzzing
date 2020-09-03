@@ -29,7 +29,7 @@ def main():
     else :
         print "to noting :( "
 
-def api_directory():
+def web_site_directory():
      url = raw_input("Url Input --> ")
      file_text = raw_input("Input file text --> ")
      file = open("urls_api.txt","w")
