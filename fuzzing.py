@@ -23,7 +23,7 @@ def main():
     # The number selection by the user
     options = input("Please choose a number --> " )
     if options == 1 :
-        api_directory()
+        web_site_directory()
     if options == 2 :
         print "noting :( "
     else :
