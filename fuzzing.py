@@ -1,48 +1,44 @@
-import requests
-import time
+#usr/bin/python3 
 
+import requests
+import argparse
+import os
+
+# clean screen
+os.system("cls")
+os.system("clear")
 
 logo = '''
+        ###########################################
 
-                 ########################################
-
-
-                 ------- Devloper by Yousef -----------
-                         twitter : y0usef_11
-
-                      	1 - web site directory
-	                2 - (soon) Api directory
-
-                 ########################################
-
+                tool Brute Force directory
+                        y0usef 
+        ###########################################
 '''
 
-print logo
+print(logo)
 
-def main():
-    # The number selection by the user
-    options = input("Please choose a number --> " )
-    if options == 1 :
-        web_site_directory()
-    if options == 2 :
-        print "noting :( "
-    else :
-        print "to noting :( "
+# open session here connect 
 
-def web_site_directory():
-     url = raw_input("Url Input --> ")
-     file_text = raw_input("Input file text --> ")
-     file = open("urls_api.txt","w")
-     read = open(file_text,"r")
-     for line in read :
-         req = requests.get(url + str(line))
-         if req.status_code != 404:
-             file.write(str(req.request.url)+ "\n")
-             print req.request.url, " == 200 Ok"
-         else:
-             print " Not Found "
+session = requests.Session()
 
+directory_list = open("directory_list.txt",'r')
 
-  
-if __name__ == "__main__":
-    main()
+def get_arags():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-u', '--url' , dest ='url',help = 'url website')
+    options = parser.parse_args()
+
+    if not options.url:
+        parser.error('[-] Please Enter url website , use --help for more')
+
+    return options.url
+
+for line in directory_list:
+    url = session.get(get_arags()+ "/" + str(line),verify=False)
+    remove = line.rstrip("\n")
+    if url.status_code == 200:
+        print("[+] site is status code 200 => " + get_arags() + "/" + str(remove))
+    else:
+        print(" [-] site is status code other => " + get_arags() + "/" + str(remove))
+    
